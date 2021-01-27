@@ -1,0 +1,7 @@
+[submodule "tools/mcrcon"]
+	path = tools/mcrcon
+	url = git@github.com:Tiiffi/mcrcon.git
+
+[submodule "tools/noip2.service"]
+	path = tools/noip2.service
+	url = git@gist.github.com:da6560f21e55178bcea7fdd9ca2e39b5.git
