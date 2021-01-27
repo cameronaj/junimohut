@@ -1,0 +1,19 @@
+[Unit]
+Description=Junimohut Minecraft Server
+After=network.target
+
+[Service]
+User=minecraft
+Nice=1
+KillMode=none
+SuccessExitStatus=0 1
+ProtectHome=true
+ProtectSystem=full
+PrivateDevices=true
+NoNewPrivileges=true
+WorkingDirectory=/srv/minecraft/junimohut
+ExecStart=/usr/bin/java -Xmx12G -Xms12G -jar server.jar nogui
+ExecStop=/tools/mcrcon/mcrcon -H 127.0.0.1 -P <PORT> -p <PASSWORD> stop
+
+[Install]
+WantedBy=multi-user.target
