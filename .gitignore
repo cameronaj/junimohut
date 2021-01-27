@@ -2,4 +2,7 @@
 .bash_logout
 .profile
 .gitconfig
+.ssh/
+/.ssh
 .ssh
+
