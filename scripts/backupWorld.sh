@@ -34,7 +34,7 @@ fi
 
 cd /srv/minecraft/
 
-FILE_NAME="$2"-backup-$(date +"%d-%m-%Y--%H:%M")
+FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
 mkdir -p "/back-ups/$2/$3/$FILE_NAME"
 
 cp -r "/$2/$3" "/back-ups/$2/$3/$FILE_NAME"
