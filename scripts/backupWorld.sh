@@ -19,28 +19,34 @@ if [ "$#" -gt 2 ]; then
   WORLD_NAME="$3"
 fi
 
-# Grab information from file in /var/
+current_world_size=`du -s /srv/minecraft/junimohut/world | cut -f1`
 
+# Grab the last backup size from the variable file
+last_backup_size=0
+statefile="/var/minecraft/junimoStateFile"
+if [ -f "$statefile" ]; then
+  read -r last_backup_size <"$statefile"
+fi
 
-# check current world size versus previous back-up
+# Check if enough has changed on the server to change
+if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
 
-# If parameter 1 is Daily, Weekly or Monthly, call other shell scripts to handle additional work
+  # Save new backup size to variable file
+  printf '%d\n' "$current_world_size" >"$statefile"
 
+  # Move to the minecraft directory
+  cd /srv/minecraft/
 
-# Else if diff >= 2000 KB, save a new backup and push to Github
-  # also save the new size to /var/
+  FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
+  mkdir -p "/back-ups/$2/$3/$FILE_NAME"
 
+  # Copy current world folder into backup file structure
+  cp -r "/$2/$3" "/back-ups/$2/$3/$FILE_NAME"
 
+  # Git to savin' already!
+  git add .
+  git commit -m "Automated $1 Backup of $2 $3: $FILE_NAME"
+  git push
+fi
 
-cd /srv/minecraft/
-
-FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
-mkdir -p "/back-ups/$2/$3/$FILE_NAME"
-
-cp -r "/$2/$3" "/back-ups/$2/$3/$FILE_NAME"
-
-
-
-git add .
-git commit -m "Automated $1 Backup of $2 $3: $FILE_NAME"
-git push
+# If parameter 1 is Daily, Weekly or Monthly, call other shell scripts to handle additional...
