@@ -32,7 +32,7 @@ fi
 if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
 
   # Save new backup size to variable file
-  printf '%d\n' "$current_world_size" >"$statefile"
+  # printf '%d\n' "$current_world_size" >"$statefile"
 
   # Move to the minecraft directory
   cd /srv/minecraft/
