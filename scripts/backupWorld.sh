@@ -36,16 +36,17 @@ if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
 
   # Move to the minecraft directory
   cd /srv/minecraft/
+  echo "Checking Directories"
 
   FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
-  mkdir -p "/back-ups/$2/$3/$FILE_NAME"
+  mkdir -p "/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
 
   # Copy current world folder into backup file structure
-  cp -r "/$2/$3" "/back-ups/$2/$3/$FILE_NAME"
+  cp -r "/$SERVER_NAME/$WORLD_NAME" "/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
 
   # Git to savin' already!
   git add .
-  git commit -m "Automated $1 Backup of $2 $3: $FILE_NAME"
+  git commit -m "Automated $1 Backup of $SERVER_NAME $WORLD_NAME: $FILE_NAME"
   git push
 fi
 
