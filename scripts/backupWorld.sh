@@ -34,14 +34,11 @@ if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
   # Save new backup size to variable file
   # printf '%d\n' "$current_world_size" >"$statefile"
 
-  # Move to the minecraft directory
-  cd /srv/minecraft/
-
   FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
-  mkdir -p "/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
+  mkdir -p "/srv/minecraft/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
 
   # Copy current world folder into backup file structure
-  cp -r "/$SERVER_NAME/$WORLD_NAME" "/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
+  cp -r "/srv/minecraft/$SERVER_NAME/$WORLD_NAME" "/srv/minecraft/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
 
   # Git to savin' already!
   git add .
