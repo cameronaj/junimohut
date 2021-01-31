@@ -36,7 +36,6 @@ if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
 
   # Move to the minecraft directory
   cd /srv/minecraft/
-  echo "Checking Directories"
 
   FILE_NAME=backup-$(date +"%d-%m-%Y--%H:%M")
   mkdir -p "/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
