@@ -41,9 +41,10 @@ if [ "$current_world_size" -ge $((last_backup_size + 2000)) ]; then
   cp -r "/srv/minecraft/$SERVER_NAME/$WORLD_NAME" "/srv/minecraft/back-ups/$SERVER_NAME/$WORLD_NAME/$FILE_NAME"
 
   # Git to savin' already!
-  git add .
-  git commit -m "Automated $1 Backup of $SERVER_NAME $WORLD_NAME: $FILE_NAME"
+  push d "/srv/minecraft"
+  git commit -am "Automated $1 Backup of $SERVER_NAME $WORLD_NAME: $FILE_NAME"
   git push
+  pop d
 fi
 
 # If parameter 1 is Daily, Weekly or Monthly, call other shell scripts to handle additional...
